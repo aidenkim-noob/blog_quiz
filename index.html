@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>나는 어떤 다이어트 유형? | BETTERWELLER</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F7F4EF;
+  --bg2:      #EDE8E0;
+  --surface:  #FFFFFF;
+  --border:   #DDD7CE;
+  --border2:  #C9C2B8;
+  --ink:      #2B2420;
+  --ink2:     #5A4F47;
+  --muted:    #9A8F87;
+  --accent:   #8B6F5E;
+  --gold:     #B09470;
+  --gold-bg:  #F5EEE3;
+  --radius:   16px;
+  --radius-s: 10px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Noto Sans KR', sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100dvh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9999;
+}
+
+.screen { display:none; animation:fadeUp 0.4s ease forwards; }
+.screen.active { display:flex; flex-direction:column; min-height:100dvh; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══ INTRO ══ */
+:root {
+  --brand:    #E85D20;
+  --brand-lt: #FDF0E8;
+  --brand-dk: #C44A14;
+}
+
+#intro { background:var(--bg); justify-content:space-between; }
+
+.intro-body {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:52px 28px 28px; text-align:center;
+}
+
+.brand-tag {
+  font-size:10px; font-weight:700;
+  letter-spacing:0.35em; color:var(--brand);
+  text-transform:uppercase; margin-bottom:18px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+
+.brand-tag::before,
+.brand-tag::after {
+  content:''; display:inline-block;
+  width:20px; height:1px; background:var(--brand); opacity:.45;
+}
+
+.deco-line {
+  width:1px; height:36px;
+  background:linear-gradient(to bottom, transparent, var(--border2));
+  margin:0 auto 22px;
+}
+
+.intro-hl {
+  font-family:'Noto Serif KR', serif;
+  font-size:clamp(30px, 9vw, 42px);
+  font-weight:700; line-height:1.28;
+  letter-spacing:-0.025em; color:var(--ink);
+  margin-bottom:14px;
+}
+
+.intro-hl em {
+  font-style:normal;
+  color:var(--brand);
+  display:block;
+}
+
+.intro-sub {
+  font-size:14px; font-weight:300;
+  color:var(--ink2); line-height:1.85;
+  margin-bottom:28px; letter-spacing:0.01em;
+  max-width:260px;
+}
+
+.gold-rule { width:28px; height:1px; background:var(--border2); margin:0 auto 24px; }
+
+/* 메타 카드 그리드 */
+.meta-cards {
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  gap:8px; width:100%; max-width:340px;
+  margin-bottom:28px;
+}
+
+.meta-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px 8px;
+  display:flex; flex-direction:column;
+  align-items:center; gap:6px;
+}
+
+.meta-card-icon {
+  font-size:18px; line-height:1;
+}
+
+.meta-card-val {
+  font-family:'Noto Serif KR', serif;
+  font-size:16px; font-weight:700;
+  color:var(--ink); line-height:1;
+  letter-spacing:-0.02em;
+}
+
+.meta-card-lbl {
+  font-size:10px; font-weight:400;
+  color:var(--muted); letter-spacing:0.04em;
+  line-height:1.2;
+}
+
+.chips {
+  display:flex; flex-wrap:wrap; gap:6px;
+  justify-content:center; max-width:310px;
+}
+
+.chip {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:999px; padding:6px 12px;
+  font-size:11px; font-weight:400; color:var(--ink2);
+  letter-spacing:0.01em;
+}
+
+/* 하이라이트 칩 (첫 번째) */
+.chip:first-child {
+  border-color:rgba(232,93,32,.3);
+  color:var(--brand);
+  background:var(--brand-lt);
+}
+
+.intro-foot { padding:22px 24px 44px; }
+
+.btn-primary {
+  width:100%;
+  background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dk) 100%);
+  color:#FFFFFF;
+  font-family:'Noto Sans KR', sans-serif;
+  font-size:15px; font-weight:700;
+  border:none; border-radius:var(--radius);
+  padding:18px 24px; cursor:pointer;
+  letter-spacing:0.03em;
+  transition:opacity .2s, transform .15s;
+  position:relative; overflow:hidden;
+  box-shadow: 0 4px 16px rgba(232,93,32,.3);
+}
+
+.btn-primary::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(255,255,255,.12) 0%, transparent 60%);
+}
+
+.btn-primary:active { transform:scale(.985); opacity:.92; }
+
+.foot-note {
+  text-align:center; font-size:12px;
+  color:var(--muted); margin-top:12px;
+  font-weight:300; letter-spacing:0.03em;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+
+.foot-note::before,
+.foot-note::after {
+  content:''; display:inline-block;
+  width:14px; height:1px;
+  background:var(--border2);
+}
+
+/* ══ QUIZ ══ */
+#quiz { background:var(--bg); }
+
+.quiz-header {
+  padding:16px 20px 14px;
+  background:rgba(247,244,239,.95);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:10;
+  display:flex; flex-direction:column; gap:12px;
+}
+
+.header-row { display:flex; align-items:center; justify-content:space-between; }
+
+.back-btn {
+  width:38px; height:38px;
+  border-radius:var(--radius-s);
+  background:var(--surface); border:1px solid var(--border);
+  color:var(--ink2); font-size:16px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .15s;
+}
+
+.back-btn:disabled { opacity:.22; pointer-events:none; }
+.back-btn:active { background:var(--bg2); }
+
+.q-step {
+  font-size:11px; font-weight:700;
+  letter-spacing:0.2em; color:var(--muted); text-transform:uppercase;
+}
+
+.q-step em { color:var(--brand); font-style:normal; }
+
+.progress-track {
+  height:3px; background:var(--border);
+  border-radius:999px; overflow:hidden;
+}
+
+.progress-fill {
+  height:100%;
+  background:linear-gradient(90deg, var(--brand), #F07840);
+  border-radius:999px;
+  transition:width .5s cubic-bezier(.34,1.4,.64,1);
+}
+
+.quiz-body {
+  flex:1; padding:32px 22px 48px;
+  display:flex; flex-direction:column; gap:26px;
+}
+
+.q-meta { display:flex; flex-direction:column; gap:10px; }
+
+.q-cat {
+  font-size:10px; font-weight:700;
+  letter-spacing:0.25em; color:var(--gold); text-transform:uppercase;
+  display:flex; align-items:center; gap:8px;
+}
+
+.q-cat::before { content:''; width:14px; height:1px; background:var(--gold); }
+
+.q-text {
+  font-family:'Noto Serif KR', serif;
+  font-size:21px; font-weight:600;
+  line-height:1.45; letter-spacing:-0.025em; color:var(--ink);
+}
+
+.q-hint {
+  font-size:12px; font-weight:300;
+  color:var(--muted); line-height:1.6; letter-spacing:0.01em;
+}
+
+.answers { display:flex; flex-direction:column; gap:10px; }
+
+.ans-btn {
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:var(--radius); padding:16px 18px;
+  display:flex; align-items:flex-start; gap:14px;
+  text-align:left; cursor:pointer;
+  font-family:'Noto Sans KR', sans-serif; color:var(--ink);
+  transition:all .2s;
+  box-shadow:0 1px 3px rgba(44,37,32,.04);
+}
+
+.ans-btn:active { border-color:var(--brand); background:var(--brand-lt); transform:scale(.99); }
+.ans-btn.selected { border-color:var(--brand); background:var(--brand-lt); }
+
+.ans-alpha {
+  width:26px; height:26px; min-width:26px;
+  border-radius:8px; background:var(--bg2); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; color:var(--muted);
+  transition:all .2s; margin-top:2px;
+}
+
+.ans-btn.selected .ans-alpha { background:var(--brand); color:#fff; border-color:var(--brand); }
+
+.ans-main { font-size:14px; font-weight:500; line-height:1.5; color:var(--ink); padding-top:3px; }
+.ans-sub  { font-size:12px; font-weight:300; color:var(--muted); margin-top:3px; line-height:1.5; }
+
+/* ══ RESULT ══ */
+#result { background:var(--bg); }
+
+.result-hero {
+  background:var(--surface);
+  padding:52px 24px 40px; text-align:center;
+  border-bottom:1px solid var(--border);
+  position:relative; overflow:hidden;
+}
+
+.result-hero::before {
+  content:''; position:absolute;
+  width:260px; height:260px; border-radius:50%;
+  background:radial-gradient(circle, rgba(176,148,112,.1) 0%, transparent 70%);
+  top:-80px; right:-70px; pointer-events:none;
+}
+
+.result-hero::after {
+  content:''; position:absolute;
+  width:200px; height:200px; border-radius:50%;
+  background:radial-gradient(circle, rgba(139,111,94,.07) 0%, transparent 70%);
+  bottom:-50px; left:-50px; pointer-events:none;
+}
+
+.res-brand {
+  font-size:10px; font-weight:700;
+  letter-spacing:0.3em; color:var(--brand); text-transform:uppercase;
+  margin-bottom:20px; position:relative; z-index:1;
+}
+
+.res-emoji { font-size:52px; display:block; margin-bottom:16px; position:relative; z-index:1; }
+
+.res-sublabel {
+  font-size:11px; font-weight:500;
+  letter-spacing:0.15em; color:var(--muted); text-transform:uppercase;
+  margin-bottom:8px; position:relative; z-index:1;
+}
+
+.res-type {
+  font-family:'Noto Serif KR', serif;
+  font-size:clamp(24px, 7.5vw, 32px); font-weight:700;
+  letter-spacing:-0.025em; color:var(--ink); line-height:1.2;
+  position:relative; z-index:1;
+}
+
+.res-rule { width:28px; height:1px; background:var(--gold); margin:18px auto; position:relative; z-index:1; }
+
+.res-tagline {
+  font-size:14px; font-weight:500; color:var(--accent);
+  margin-bottom:14px; letter-spacing:0.01em; line-height:1.6;
+  position:relative; z-index:1;
+}
+
+/* "이 유형과 꼭 닮았어요" 뱃지 */
+.res-match-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--gold-bg); border:1px solid rgba(176,148,112,.4);
+  border-radius:999px; padding:6px 16px;
+  font-size:12px; font-weight:500; color:var(--accent);
+  position:relative; z-index:1; margin-bottom:18px;
+  letter-spacing:0.02em;
+}
+
+.res-match-badge::before { content:'✦'; font-size:10px; color:var(--gold); }
+
+.res-desc {
+  font-size:13px; font-weight:300; color:var(--ink2);
+  line-height:1.85; max-width:300px; margin:0 auto;
+  letter-spacing:0.01em; position:relative; z-index:1;
+}
+
+/* result sections */
+.result-section { padding:32px 22px 0; }
+
+.sec-label {
+  font-size:10px; font-weight:700;
+  letter-spacing:0.25em; color:var(--muted); text-transform:uppercase;
+  margin-bottom:16px; display:flex; align-items:center; gap:10px;
+}
+
+.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.trait-list { display:flex; flex-direction:column; gap:10px; }
+
+.trait-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:16px 18px;
+  display:flex; gap:14px; align-items:flex-start;
+  box-shadow:0 1px 3px rgba(44,37,32,.04);
+}
+
+.trait-icon { font-size:20px; margin-top:1px; }
+.trait-text h4 { font-size:13px; font-weight:700; color:var(--ink); margin-bottom:4px; letter-spacing:-0.01em; }
+.trait-text p  { font-size:12px; font-weight:300; color:var(--ink2); line-height:1.65; }
+
+/* ── 추천 솔루션 ── */
+.solution-wrap { padding:28px 22px 0; }
+
+.sol-list { display:flex; flex-direction:column; gap:10px; }
+
+/* 공개 항목 */
+.sol-item {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:15px 18px;
+  display:flex; align-items:center; gap:14px;
+  box-shadow:0 1px 3px rgba(44,37,32,.04);
+}
+
+.sol-rank {
+  width:28px; height:28px; min-width:28px;
+  border-radius:8px; background:var(--bg2); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; color:var(--muted);
+}
+
+.sol-rank.top { background:var(--gold-bg); border-color:rgba(176,148,112,.4); color:var(--gold); }
+
+.sol-text { font-size:14px; font-weight:500; color:var(--ink); line-height:1.45; }
+.sol-sub  { font-size:12px; font-weight:300; color:var(--muted); margin-top:2px; }
+
+/* 잠금 항목 */
+.sol-locked {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:15px 18px;
+  display:flex; align-items:center; gap:14px;
+  position:relative; overflow:hidden;
+  box-shadow:0 1px 3px rgba(44,37,32,.04);
+}
+
+.sol-locked::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to right, rgba(247,244,239,0.15) 0%, rgba(247,244,239,0.85) 40%, rgba(247,244,239,0.97) 100%);
+  pointer-events:none;
+}
+
+.sol-locked-inner {
+  display:flex; align-items:center; gap:14px;
+  width:100%; filter:blur(4px);
+  user-select:none;
+}
+
+.sol-locked-label {
+  position:absolute; right:16px; top:50%;
+  transform:translateY(-50%);
+  z-index:2;
+  display:flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:600; color:var(--accent);
+  letter-spacing:0.03em;
+}
+
+.sol-lock-icon {
+  width:18px; height:18px;
+  background:var(--gold-bg); border:1px solid rgba(176,148,112,.4);
+  border-radius:5px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px;
+}
+
+/* 잠금 해제 CTA */
+.unlock-banner {
+  margin:16px 0 0;
+  background:var(--ink); border-radius:var(--radius);
+  padding:20px 18px;
+  display:flex; flex-direction:column; gap:14px;
+  position:relative; overflow:hidden;
+}
+
+.unlock-banner::before {
+  content:''; position:absolute;
+  width:160px; height:160px; border-radius:50%;
+  background:radial-gradient(circle, rgba(176,148,112,.1) 0%, transparent 70%);
+  top:-50px; right:-30px; pointer-events:none;
+}
+
+.unlock-text {
+  font-family:'Noto Serif KR', serif;
+  font-size:16px; font-weight:600;
+  color:#FAF8F5; line-height:1.5; letter-spacing:-0.01em;
+}
+
+.unlock-sub {
+  font-size:12px; font-weight:300;
+  color:rgba(250,248,245,.6); line-height:1.6;
+  margin-top:-6px;
+}
+
+.btn-unlock {
+  display:block; width:100%;
+  background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dk) 100%);
+  color:#FFFFFF;
+  font-family:'Noto Sans KR', sans-serif;
+  font-size:14px; font-weight:700;
+  border:none; border-radius:var(--radius-s);
+  padding:15px 20px; cursor:pointer;
+  text-decoration:none; text-align:center;
+  letter-spacing:0.03em;
+  transition:opacity .15s, transform .15s;
+  position:relative; z-index:1;
+  box-shadow:0 3px 12px rgba(232,93,32,.28);
+}
+
+.btn-unlock:active { transform:scale(.985); opacity:.9; }
+
+/* CTA */
+.cta-wrap { padding:20px 22px 52px; }
+
+.retry-btn {
+  width:100%; background:transparent; color:var(--muted);
+  font-family:'Noto Sans KR', sans-serif;
+  font-size:13px; font-weight:400;
+  border:1px solid var(--border); border-radius:var(--radius-s);
+  padding:14px; cursor:pointer;
+  letter-spacing:0.02em; transition:all .15s;
+}
+
+.retry-btn:active { border-color:var(--accent); color:var(--ink2); }
+</style>
+</head>
+<body>
+
+<!-- ══ INTRO ══ -->
+<div id="intro" class="screen active">
+  <div class="intro-body">
+    <div class="brand-tag">Betterweller</div>
+    <div class="deco-line"></div>
+    <div class="intro-hl">내 몸은 왜<br><em>안 빠질까?</em></div>
+    <p class="intro-sub">7가지 질문으로 알아보는<br>나에게 맞는 진짜 다이어트 방법</p>
+    <div class="gold-rule"></div>
+    <div class="meta-cards">
+      <div class="meta-card">
+        <div class="meta-card-icon">⏱</div>
+        <div class="meta-card-val">2분</div>
+        <div class="meta-card-lbl">소요 시간</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-icon">📋</div>
+        <div class="meta-card-val">7문항</div>
+        <div class="meta-card-lbl">질문 수</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-icon">✨</div>
+        <div class="meta-card-val">즉시</div>
+        <div class="meta-card-lbl">결과 열람</div>
+      </div>
+    </div>
+    <div class="chips">
+      <div class="chip">혈당 스파이크형</div>
+      <div class="chip">스트레스 과식형</div>
+      <div class="chip">대사 저하형</div>
+      <div class="chip">장 트러블형</div>
+      <div class="chip">수면 부족형</div>
+    </div>
+  </div>
+  <div class="intro-foot">
+    <button class="btn-primary" onclick="startQuiz()">내 다이어트 유형 알아보기 →</button>
+    <p class="foot-note">무료 · 즉시 결과 · 개인정보 수집 없음</p>
+  </div>
+</div>
+
+<!-- ══ QUIZ ══ -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <div class="header-row">
+      <button class="back-btn" id="backBtn" onclick="goBack()" disabled>←</button>
+      <span class="q-step">Q <em id="qNum">1</em> / 7</span>
+      <div style="width:38px"></div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="quiz-body" id="quizBody"></div>
+</div>
+
+<!-- ══ RESULT ══ -->
+<div id="result" class="screen">
+  <div class="result-hero">
+    <div class="res-brand">Betterweller</div>
+    <span class="res-emoji" id="resEmoji"></span>
+    <div class="res-sublabel">나의 다이어트 유형</div>
+    <div class="res-type" id="resType"></div>
+    <div class="res-rule"></div>
+    <div class="res-tagline" id="resTagline"></div>
+    <div class="res-match-badge">이 유형 해당 가능성 높음</div>
+    <p class="res-desc" id="resDesc"></p>
+  </div>
+
+  <div class="result-section">
+    <div class="sec-label">이런 특징이 있어요</div>
+    <div class="trait-list" id="traitCards"></div>
+  </div>
+
+  <div class="solution-wrap">
+    <div class="sec-label">추천 솔루션 TOP 5</div>
+    <div class="sol-list" id="solList"></div>
+  </div>
+
+  <div class="cta-wrap">
+    <button class="retry-btn" onclick="resetQuiz()">↺ 처음부터 다시하기</button>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────
+const questions = [
+  {
+    category: "식사 패턴",
+    text: "밥 먹은 뒤\n어떤 상태인가요?",
+    hint: "최근 한 달 기준으로 가장 자주 경험하는 것을 골라주세요.",
+    answers: [
+      { text:"급격히 졸리고 집중이 안 돼요",    sub:"눈이 감기고 멍해지는 식곤증",  score:4, type:"혈당" },
+      { text:"배는 부른데 또 먹고 싶어요",       sub:"입이 심심하고 군것질이 당김",  score:3, type:"스트레스" },
+      { text:"속이 더부룩하거나 가스가 차요",    sub:"불쾌한 소화 증상이 반복됨",   score:3, type:"장" },
+      { text:"딱히 변화 없이 괜찮아요",          sub:"특별한 불편함 없음",           score:1, type:"대사" },
+    ]
+  },
+  {
+    category: "스트레스 & 감정",
+    text: "스트레스를 받으면\n제일 먼저 뭘 하나요?",
+    hint: "솔직하게 골라주세요.",
+    answers: [
+      { text:"냉장고나 편의점으로 향해요",      sub:"먹는 것이 가장 큰 위안",       score:4, type:"스트레스" },
+      { text:"단 것이나 탄수화물이 당겨요",     sub:"초콜릿, 빵, 과자 등",          score:3, type:"혈당" },
+      { text:"먹기보다 그냥 눕고 싶어요",       sub:"아무것도 하기 싫은 무기력감",  score:3, type:"대사" },
+      { text:"산책이나 운동으로 풀어요",        sub:"비교적 건강한 방식으로 해소",  score:1, type:"수면" },
+    ]
+  },
+  {
+    category: "수면 & 회복",
+    text: "아침에 눈을 떴을 때\n보통 어떤가요?",
+    hint: "최근 한 달을 기준으로 답해주세요.",
+    answers: [
+      { text:"몇 시간 자도 항상 피곤해요",        sub:"잠을 자도 개운하지 않음",        score:4, type:"수면" },
+      { text:"일어나기 싫고 더 자고 싶어요",      sub:"알람을 여러 번 끄게 됨",         score:3, type:"수면" },
+      { text:"얼굴이나 다리가 부어있어요",        sub:"무겁고 붓는 느낌으로 하루 시작", score:3, type:"장" },
+      { text:"비교적 개운하게 일어나요",          sub:"수면 자체는 나쁘지 않음",        score:1, type:"대사" },
+    ]
+  },
+  {
+    category: "몸 신호",
+    text: "살이 찔 때\n주로 어디에 먼저 찌나요?",
+    hint: "가장 먼저 눈에 띄는 부위를 골라주세요.",
+    answers: [
+      { text:"아랫배와 옆구리가 도드라져요",   sub:"복부 중심 체지방 증가",   score:4, type:"혈당" },
+      { text:"전체적으로 붓는 느낌으로 쪄요",  sub:"물살·부종 느낌이 강함",   score:4, type:"장" },
+      { text:"팔다리보다 몸통 위주로 쪄요",    sub:"상체 비만 경향",          score:3, type:"스트레스" },
+      { text:"허벅지와 하체가 주로 굵어져요",  sub:"하체 집중 지방 축적",     score:2, type:"대사" },
+    ]
+  },
+  {
+    category: "식사 시간대",
+    text: "하루 중 언제\n가장 많이 먹게 되나요?",
+    hint: "",
+    answers: [
+      { text:"저녁 6시 이후, 야식 포함",        sub:"낮엔 별로 안 먹고 밤에 몰아먹음", score:4, type:"혈당",    bonus:{type:"수면",  score:2} },
+      { text:"점심 후 오후 간식이 많아요",      sub:"오후 2~4시에 식욕이 몰림",        score:3, type:"스트레스" },
+      { text:"아침을 거의 안 먹어요",           sub:"공복이 길거나 아침 결식 습관",    score:3, type:"대사" },
+      { text:"세 끼를 거의 규칙적으로 먹어요",  sub:"식사 패턴이 안정적인 편",         score:1, type:"장" },
+    ]
+  },
+  {
+    category: "소화 & 장",
+    text: "평소 소화 상태는\n어떤가요?",
+    hint: "",
+    answers: [
+      { text:"변비와 설사가 번갈아 와요",          sub:"장이 불규칙하고 예민함",  score:4, type:"장" },
+      { text:"식후에 배가 빵빵하고 가스가 많아요", sub:"팽만감과 가스가 잦음",    score:3, type:"장" },
+      { text:"먹으면 바로 화장실에 가고 싶어요",   sub:"과민성 경향",             score:3, type:"장",  bonus:{type:"스트레스", score:1} },
+      { text:"소화는 별 문제 없어요",              sub:"장 트러블이 별로 없음",   score:1, type:"대사" },
+    ]
+  },
+  {
+    category: "운동 & 대사",
+    text: "운동해도 살이 잘 안 빠진다면\n가장 큰 이유는요?",
+    hint: "가장 솔직한 이유를 골라주세요.",
+    answers: [
+      { text:"운동하고 나면 더 많이 먹게 돼요",    sub:"보상 심리로 과식하게 됨",  score:4, type:"스트레스", bonus:{type:"혈당", score:2} },
+      { text:"피곤해서 꾸준히 하기 어려워요",      sub:"의지보다 몸의 피로가 문제", score:3, type:"수면" },
+      { text:"열심히 해도 체중 변화가 없어요",     sub:"정체기가 너무 길게 이어짐", score:4, type:"대사" },
+      { text:"운동하면 비교적 잘 빠지는 편이에요", sub:"몸의 반응은 좋은 편",      score:1, type:"대사" },
+    ]
+  }
+];
+
+// 유형별 특징
+const types = {
+  혈당: {
+    name:"혈당 스파이크형", emoji:"⚡",
+    tagline:"먹는 순서만 바꿔도 달라질 수 있어요",
+    desc:"혈당이 급격히 오르내리는 패턴을 가진 유형이에요. 탄수화물에 예민하게 반응하고, 식후 급격한 피로감과 배고픔 재발이 반복돼요. 단순히 덜 먹는 것보다 무엇을, 어떤 순서로 먹는지가 훨씬 중요해요.",
+    traits:[
+      { icon:"🍚", title:"탄수화물을 끊기 어려워요",  desc:"밥, 면, 빵을 먹고 나면 또 당기는 악순환이 반복돼요." },
+      { icon:"💤", title:"식후 심한 식곤증",           desc:"점심 후 졸음이 쏟아지거나 집중력이 뚝 떨어져요." },
+      { icon:"🎯", title:"복부 중심 체지방",           desc:"아랫배와 내장지방이 유난히 잘 쌓이는 편이에요." },
+    ],
+    solutions:[
+      { rank:5, icon:"🍋", text:"식전 식초·레몬즙 한 스푼",    sub:"아세트산이 혈당 상승을 늦춰줘요" },
+      { rank:4, icon:"🌾", text:"흰쌀 → 잡곡·귀리로 교체",    sub:"GI 지수를 낮춰 혈당 곡선을 완만하게" },
+      { rank:3, icon:"🥗", text:"채소→단백질→탄수화물 순서",   sub:"같은 밥도 먹는 순서로 혈당이 달라요" },
+      { rank:2, icon:"🚶", text:"식후 즉시 10분 걷기",         sub:"식후 혈당 피크를 선제 차단" },
+      { rank:1, icon:"⏰", text:"저녁 6시 이후 탄수화물 제한", sub:"야간 인슐린 저항성 구간을 피하기" },
+    ],
+  },
+  스트레스: {
+    name:"스트레스 과식형", emoji:"🌿",
+    tagline:"먹는 게 문제가 아니라 감정이 먼저예요",
+    desc:"스트레스와 감정이 식욕과 직접 연결된 유형이에요. 코티솔 호르몬이 혈당을 올리고 지방 축적을 촉진해요. 의지력의 문제가 아니라 호르몬의 문제예요.",
+    traits:[
+      { icon:"😔", title:"감정적 식욕이 발동해요",    desc:"불안하거나 지치면 무언가를 입에 넣어야 안정되는 느낌이에요." },
+      { icon:"🍫", title:"고칼로리 음식에 손이 가요", desc:"스트레스 상황에서 건강한 음식보다 단 것, 자극적인 것을 찾아요." },
+      { icon:"🔄", title:"다이어트 요요가 반복돼요",  desc:"의지로 버티다 폭식하는 사이클이 반복돼요." },
+    ],
+    solutions:[
+      { rank:5, icon:"🌅", text:"아침 5분 — 핸드폰 없이 시작", sub:"코티솔 각성 반응을 건강하게 유지" },
+      { rank:4, icon:"⏱", text:"식욕이 올 때 5분 타이머",     sub:"충동적 식욕은 5분 내 대부분 사라져요" },
+      { rank:3, icon:"🍵", text:"단백질 간식 미리 준비",       sub:"과자 대신 아몬드·그릭요거트·달걀" },
+      { rank:2, icon:"🧘", text:"퇴근 후 10~20분 걷기",       sub:"코티솔을 가장 빠르게 낮추는 방법" },
+      { rank:1, icon:"📓", text:"취침 전 감정 일기 3줄 쓰기", sub:"글쓰기만으로 코티솔이 낮아져요" },
+    ],
+  },
+  대사: {
+    name:"대사 저하형", emoji:"🌙",
+    tagline:"적게 먹어도 안 빠지는 건 대사 문제예요",
+    desc:"기초대사량이 낮아서 적게 먹어도 체중이 잘 빠지지 않는 유형이에요. 다이어트를 반복할수록 몸이 에너지를 더 아끼는 방향으로 적응하는 '대사 적응' 상태예요.",
+    traits:[
+      { icon:"🥶", title:"항상 손발이 차요",         desc:"혈액순환과 대사가 느려 체온이 낮은 경향이 있어요." },
+      { icon:"📉", title:"다이어트 효과가 미미해요",  desc:"먹는 양을 줄여도 체중 변화가 거의 없는 정체기 상태예요." },
+      { icon:"😴", title:"쉽게 피로를 느껴요",        desc:"에너지 대사가 느리니 피로감이 쌓이고 무기력함도 커져요." },
+    ],
+    solutions:[
+      { rank:5, icon:"🚿", text:"냉온 교차 샤워 (30초씩 3회)",  sub:"갈색지방을 깨워 열 생산을 높여요" },
+      { rank:4, icon:"🍳", text:"아침 고단백 식사 — 결식 금지", sub:"아침 결식이 대사를 더 낮춰요" },
+      { rank:3, icon:"🛁", text:"주 2회 반신욕 (38~40°C)",     sub:"체온 1°C 상승 = 기초대사량 10% 증가" },
+      { rank:2, icon:"🍽️", text:"칼로리 올리기 — 역설적 대사 회복", sub:"1,200kcal 이하라면 오히려 더 먹어야 해요" },
+      { rank:1, icon:"💪", text:"주 2~3회 근력 운동",           sub:"유산소보다 근육이 먼저예요" },
+    ],
+  },
+  장: {
+    name:"장 트러블형", emoji:"🌱",
+    tagline:"장이 건강해야 살이 더 잘 빠져요",
+    desc:"장내 환경이 불균형하여 소화 흡수 패턴이 달라진 유형이에요. 장내 유해균 증가와 만성 염증이 지방 대사에도 영향을 줄 수 있어요.",
+    traits:[
+      { icon:"😣", title:"배가 자주 빵빵해요",   desc:"식사 후 가스, 팽만감, 더부룩함이 반복돼요." },
+      { icon:"💧", title:"부종이 심한 편이에요",  desc:"물살처럼 붓는 느낌이 있고 체중 변동 폭이 커요." },
+      { icon:"🔄", title:"변비·설사가 반복돼요",  desc:"장이 예민하고 스트레스에도 민감하게 반응해요." },
+    ],
+    solutions:[
+      { rank:5, icon:"🍽️", text:"식사 중 물 마시지 않기 + 30번 씹기", sub:"소화액 희석 방지로 팽만감 감소" },
+      { rank:4, icon:"🌅", text:"공복에 미온수 한 컵",              sub:"장을 깨우는 하루의 첫 번째 루틴" },
+      { rank:3, icon:"🥣", text:"프리·프로바이오틱스 함께 챙기기",   sub:"그릭요거트 + 바나나가 가장 쉬운 조합" },
+      { rank:2, icon:"🚫", text:"가공식품·설탕 2주 끊기",           sub:"유해균의 먹이를 차단하는 리셋 전략" },
+      { rank:1, icon:"🚶", text:"식후 10분 가벼운 산책",            sub:"장 운동 활성화 + 혈당 조절 동시에" },
+    ],
+  },
+  수면: {
+    name:"수면 부족형", emoji:"✨",
+    tagline:"잘 자는 것도 다이어트예요",
+    desc:"수면의 질이 낮아 식욕 조절 호르몬이 무너진 유형이에요. 수면이 부족하면 식욕 호르몬(그렐린)이 높아지고 포만 호르몬(렙틴)이 낮아져 하루에 300~500kcal를 더 먹게 돼요.",
+    traits:[
+      { icon:"😵", title:"자고 일어나도 피곤해요",   desc:"수면 시간과 관계없이 개운하지 않고 자꾸 졸려요." },
+      { icon:"🍜", title:"자기 전에 야식이 당겨요",  desc:"밤에 식욕이 솟구치고 고칼로리 음식을 찾게 돼요." },
+      { icon:"🧠", title:"다이어트 의지가 무너져요", desc:"수면 부족은 자제력을 담당하는 전전두엽 기능을 직접 저하시켜요." },
+    ],
+    solutions:[
+      { rank:5, icon:"🌙", text:"저녁 7시 이후 탄수화물 제한",       sub:"야간 혈당 안정이 수면 질을 높여요" },
+      { rank:4, icon:"☀️", text:"기상 직후 햇빛 10~15분",            sub:"생체시계를 리셋하는 가장 강력한 방법" },
+      { rank:3, icon:"🛁", text:"취침 1~2시간 전 따뜻한 샤워",       sub:"체온 하강으로 멜라토닌 분비 유도" },
+      { rank:2, icon:"📵", text:"취침 1시간 전 블루라이트 차단",      sub:"멜라토닌 억제 요인 제거" },
+      { rank:1, icon:"🕐", text:"매일 같은 시간에 자고 일어나기",     sub:"주말 몰아 자기가 더 해로운 이유" },
+    ],
+  },
+};
+
+// ─── STATE ───────────────────────────────────
+let current = 0;
+let scores  = { 혈당:0, 스트레스:0, 대사:0, 장:0, 수면:0 };
+let history = [];
+
+// ─── HELPERS ─────────────────────────────────
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─── QUIZ FLOW ───────────────────────────────
+function startQuiz() {
+  current = 0;
+  scores  = { 혈당:0, 스트레스:0, 대사:0, 장:0, 수면:0 };
+  history = [];
+  show('quiz');
+  renderQ();
+}
+
+function renderQ() {
+  const q   = questions[current];
+  const pct = (current / questions.length) * 100;
+  const lbl = ['A', 'B', 'C', 'D'];
+
+  document.getElementById('qNum').textContent         = current + 1;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('backBtn').disabled          = current === 0;
+
+  document.getElementById('quizBody').innerHTML = `
+    <div class="q-meta">
+      <div class="q-cat">${q.category}</div>
+      <div class="q-text">${q.text.replace('\n', '<br>')}</div>
+      ${q.hint ? `<p class="q-hint">${q.hint}</p>` : ''}
+    </div>
+    <div class="answers">
+      ${q.answers.map((a, i) => `
+        <button class="ans-btn" onclick="pick(${i})">
+          <div class="ans-alpha">${lbl[i]}</div>
+          <div>
+            <div class="ans-main">${a.text}</div>
+            ${a.sub ? `<div class="ans-sub">${a.sub}</div>` : ''}
+          </div>
+        </button>
+      `).join('')}
+    </div>
+  `;
+}
+
+function pick(idx) {
+  const a = questions[current].answers[idx];
+  document.querySelectorAll('.ans-btn').forEach(b => b.style.pointerEvents = 'none');
+  document.querySelectorAll('.ans-btn')[idx].classList.add('selected');
+
+  const delta = {};
+  delta[a.type] = (delta[a.type] || 0) + a.score;
+  if (a.bonus) delta[a.bonus.type] = (delta[a.bonus.type] || 0) + a.bonus.score;
+
+  history.push({ scoreDelta: delta });
+  for (const [t, s] of Object.entries(delta)) scores[t] += s;
+
+  setTimeout(() => {
+    current++;
+    if (current >= questions.length) showResult();
+    else renderQ();
+  }, 340);
+}
+
+function goBack() {
+  if (current === 0) return;
+  const last = history.pop();
+  for (const [t, s] of Object.entries(last.scoreDelta)) scores[t] -= s;
+  current--;
+  renderQ();
+}
+
+// ─── RESULT ──────────────────────────────────
+function showResult() {
+  const topType = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+  const t = types[topType];
+
+  document.getElementById('resEmoji').textContent   = t.emoji;
+  document.getElementById('resType').textContent    = t.name;
+  document.getElementById('resTagline').textContent = t.tagline;
+  document.getElementById('resDesc').textContent    = t.desc;
+
+  // 특징 카드
+  document.getElementById('traitCards').innerHTML = t.traits.map(tr => `
+    <div class="trait-card">
+      <div class="trait-icon">${tr.icon}</div>
+      <div class="trait-text">
+        <h4>${tr.title}</h4>
+        <p>${tr.desc}</p>
+      </div>
+    </div>
+  `).join('');
+
+  // 추천 솔루션 — 5위·4위 공개, 3위·2위·1위 잠금
+  const solHTML = t.solutions.map(sol => {
+    const isLocked = sol.rank <= 3;
+
+    if (!isLocked) {
+      return `
+        <div class="sol-item">
+          <div class="sol-rank">${sol.rank}위</div>
+          <div class="sol-icon" style="font-size:20px">${sol.icon}</div>
+          <div>
+            <div class="sol-text">${sol.text}</div>
+            <div class="sol-sub">${sol.sub}</div>
+          </div>
+        </div>`;
+    } else {
+      // 잠금 항목 — 내용은 blur, 자물쇠 레이블 표시
+      return `
+        <div class="sol-locked">
+          <div class="sol-locked-inner">
+            <div class="sol-rank top">${sol.rank}위</div>
+            <div style="font-size:20px">${sol.icon}</div>
+            <div>
+              <div class="sol-text">${sol.text}</div>
+              <div class="sol-sub">${sol.sub}</div>
+            </div>
+          </div>
+          <div class="sol-locked-label">
+            <div class="sol-lock-icon">🔒</div>
+            회원 공개
+          </div>
+        </div>`;
+    }
+  }).join('');
+
+  // 잠금 해제 배너
+  const unlockHTML = `
+    <div class="unlock-banner">
+      <div>
+        <div class="unlock-text" style="margin-bottom:10px">핵심 솔루션 3가지가 잠겨있어요</div>
+        <div class="unlock-sub">회원가입하면 상위 솔루션 3개 + 5만원 쿠폰팩 + 상세 루틴 전체를 바로 받아요.</div>
+      </div>
+      <a href="https://betterweller.com/member/agreement.html?utm_source=quiz&utm_medium=lead_magnet&utm_campaign=diet_type_quiz&utm_content=solution_unlock" target="_blank" class="btn-unlock">
+        무료 회원가입하고 전부 보기 →
+      </a>
+    </div>`;
+
+  document.getElementById('solList').innerHTML = solHTML + unlockHTML;
+
+  document.getElementById('progressFill').style.width = '100%';
+  show('result');
+}
+
+function resetQuiz() {
+  current = 0;
+  scores  = { 혈당:0, 스트레스:0, 대사:0, 장:0, 수면:0 };
+  history = [];
+  show('intro');
+}
+</script>
+</body>
+</html>
